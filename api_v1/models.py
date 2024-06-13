@@ -86,7 +86,8 @@ class Contract(models.Model):
     """
 
     number = models.CharField(max_length=100, unique=True, verbose_name='Номер договора')
-    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, verbose_name='Клиент')
+    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, verbose_name='Клиент',
+                             related_name='user_contract')
     address = models.ForeignKey(Address, null=False, on_delete=models.CASCADE, verbose_name='Адрес клиента')
 
     def __str__(self):
@@ -129,7 +130,7 @@ class Request(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, null=False, verbose_name='Статус заявки')
 
     def __str__(self):
-        return self.theme
+        return f"Заявка от {self.user.username}. Тема заявки: {self.theme.name}"
 
     class Meta:
         verbose_name = 'Заявка от клиента'
@@ -158,10 +159,22 @@ class News(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug or self._state.adding:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title)
+            slug = base_slug
+            num = 1
+            while News.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{num}"
+                num += 1
+            self.slug = slug
         else:
             if slugify(self.title) != self.slug:
-                self.slug = slugify(self.title)
+                base_slug = slugify(self.title)
+                slug = base_slug
+                num = 1
+                while News.objects.filter(slug=slug).exists():
+                    slug = f"{base_slug}-{num}"
+                    num += 1
+                self.slug = slug
 
         super().save(*args, **kwargs)
 

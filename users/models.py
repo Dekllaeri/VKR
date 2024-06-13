@@ -50,7 +50,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     @property
     def is_staff(self):
-        # Предположим, что все суперпользователи и админы имеют доступ к админке
         return self.is_superuser or self.is_admin
 
     def has_perm(self, perm, obj=None):

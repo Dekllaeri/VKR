@@ -124,6 +124,23 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+AUTHENTICATION_BACKENDS = [
+    'users.backends.CustomUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+DJOSER = {
+    'USER_ID_FIELD': 'username',
+    'LOGIN_FIELD': 'username',
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.CustomUserCreateSerializer',
+        'user': 'users.serializers.CustomUserSerializer',
+        'current_user': 'users.serializers.CustomUserSerializer',
+        'token_create': 'users.serializers.CustomTokenCreateSerializer',
+    },
+    'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
+}
+
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
@@ -139,12 +156,6 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-DJOSER = {
-    'SERIALIZERS': {
-        'token': 'api_v1.customTokenSerializer.CustomTokenSerializer',
-    }
-}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

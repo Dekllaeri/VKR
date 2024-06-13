@@ -6,12 +6,13 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from backend_config import settings
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('djoser.urls.authtoken')),
-    path('api/users/', include('users.urls'), name='users'),
-    # path('api/v1/', include('api_v1.urls'), name='api_v1'),
+    path('api/v1/', include('api_v1.urls'), name='api_v1'),
+
+
+    path('users/', include('users.urls'), name='users'),
+
 
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

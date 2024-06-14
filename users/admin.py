@@ -1,11 +1,19 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin, Group
 from django.utils.translation import gettext_lazy as _
+
 from .models import CustomUser
+
+
+admin.site.unregister(Group)
 
 
 @admin.register(CustomUser)
 class CustomUserAdmin(BaseUserAdmin):
+    """
+    Класс регистрации и настройки кастомной модели пользователя в административной панели
+    """
+
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': ('name', 'surname', 'patronymic', 'email', 'phone')}),

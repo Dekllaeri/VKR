@@ -1,14 +1,14 @@
-from rest_framework import generics
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from rest_framework import status
 from drf_spectacular.utils import extend_schema, inline_serializer
+
 from .serializers import *
+from api_v1.permissions import AllowAny, IsAuthenticated, IsClient
 
 
 class CustomTokenCreateView(generics.GenericAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny, )
     serializer_class = CustomTokenCreateSerializer
 
     @extend_schema(
@@ -40,7 +40,7 @@ class CustomTokenCreateView(generics.GenericAPIView):
 
 
 class CustomTokenDestroyView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated, )
 
     @extend_schema(
         summary="Выход",
@@ -76,8 +76,7 @@ class CustomTokenDestroyView(generics.GenericAPIView):
 
 
 class UserInfoView(generics.GenericAPIView):
-
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsClient, )
 
     @extend_schema(
         summary="Получение данных пользователя",

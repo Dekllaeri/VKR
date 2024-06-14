@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from pytils.translit import slugify
 from tinymce.models import HTMLField
-from django.utils import timezone
 
 
 User = get_user_model()
@@ -17,9 +17,6 @@ class City(models.Model):
 
     def __str__(self):
         return f'Город {self.name}'
-
-    def short_str(self):
-        return f'г. {self.name}'
 
     class Meta:
         verbose_name = 'Город'
@@ -36,12 +33,6 @@ class Street(models.Model):
 
     def __str__(self):
         return f'{self.city.__str__()}, улица {self.name}'
-
-    def short_str(self):
-        return f'ул. {self.name}'
-
-    def short_str_with_city(self):
-        return f'{self.city.short_str()}, ул. {self.name}'
 
     class Meta:
         verbose_name = 'Улица'
@@ -62,18 +53,6 @@ class Address(models.Model):
         if self.corpus:
             corp = f', корпус {self.corpus}'
         return f'{self.street.__str__()}, дом {self.number}{corp}'
-
-    def short_str(self):
-        corp = ''
-        if self.corpus:
-            corp = f'/{self.corpus}'
-        return f'{self.street.short_str()}, д. {self.number}{corp}'
-
-    def short_str_with_city(self):
-        corp = ''
-        if self.corpus:
-            corp = f'/{self.corpus}'
-        return f'{self.street.short_str_with_city()}, д. {self.number}{corp}'
 
     class Meta:
         verbose_name = 'Адрес'

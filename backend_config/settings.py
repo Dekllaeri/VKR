@@ -1,31 +1,30 @@
 import os
 from pathlib import Path
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-#k+78%hwvigmg50o=1vrbi+2$um&pr*2yez=1a2_+jw4bh)4h+'
+SECRET_KEY = str(os.environ.get("SECRET_KEY",
+                                default='django-insecure-#k+78%hwvigmg50o=1vrbi+2$um&pr*2yez=1a2_+jw4bh)4h+'))
 
-DEBUG = True
+DEBUG = bool(int(os.environ.get("DEBUG", default=1)))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend']
+ALLOWED_HOSTS = str(os.environ.get(
+    "DJANGO_ALLOWED_HOSTS",
+    default='localhost 127.0.0.1 backend'
+)).split(" ")
 
-CSRF_TRUSTED_ORIGINS = ['https://*.localhost:8000',
-                        'https://*.127.0.0.1:8000',
-                        'http://localhost:8000',
-                        'http://127.0.0.1:8000',
-                        'https://*.localhost:8080',
-                        'https://*.127.0.0.1:8080',
-                        'http://localhost:8080',
-                        'http://127.0.0.1:8080']
+CSRF_TRUSTED_ORIGINS = str(os.environ.get(
+    "CSRF_TRUSTED_ORIGINS",
+    default='https://*.localhost:8000 https://*.127.0.0.1:8000 http://localhost:8000 http://127.0.0.1:8000 '
+            'https://*.localhost:8080 https://*.127.0.0.1:8080 http://localhost:8080 http://127.0.0.1:8080'
+)).split(" ")
 
-CORS_ALLOWED_ORIGINS = ['https://*.localhost:8000',
-                        'https://*.127.0.0.1:8000',
-                        'http://localhost:8000',
-                        'http://127.0.0.1:8000',
-                        'https://*.localhost:8080',
-                        'https://*.127.0.0.1:8080',
-                        'http://localhost:8080',
-                        'http://127.0.0.1:8080']
+CORS_ALLOWED_ORIGINS = str(os.environ.get(
+    "CORS_ALLOWED_ORIGINS",
+    default='https://*.localhost:8000 https://*.127.0.0.1:8000 http://localhost:8000 http://127.0.0.1:8000 '
+            'https://*.localhost:8080 https://*.127.0.0.1:8080 http://localhost:8080 http://127.0.0.1:8080'
+)).split(" ")
 
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -98,12 +97,12 @@ WSGI_APPLICATION = 'backend_config.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "vkrback",
-        "USER": "vkrback",
-        "PASSWORD": "1234",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "ENGINE": os.environ.get("POSTGRES_ENGINE", default="django.db.backends.postgresql"),
+        "NAME": os.environ.get("POSTGRES_DB", default="vkrback"),
+        "USER": os.environ.get("POSTGRES_USER", default="vkrback"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", default="1234"),
+        "HOST": os.environ.get("POSTGRES_HOST", default="localhost"),
+        "PORT": os.environ.get("POSTGRES_PORT", default="5432"),
     }
 }
 

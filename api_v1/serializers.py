@@ -50,30 +50,37 @@ class RequestListSerializer(serializers.ModelSerializer):
     theme_name = serializers.SerializerMethodField(method_name='get_theme_name')
     status_name = serializers.SerializerMethodField(method_name='get_status_name')
 
-    def get_author_fio(self, obj):
+    @staticmethod
+    def get_author_fio(obj):
         if obj.user.patronymic:
             return f"{obj.user.surname} {obj.user.name} {obj.user.patronymic}"
         else:
             return f"{obj.user.surname} {obj.user.name}"
 
-    def get_author_email(self, obj):
+    @staticmethod
+    def get_author_email(obj):
         return f"{obj.user.email}"
 
-    def get_author_phone(self, obj):
+    @staticmethod
+    def get_author_phone(obj):
         return f"{obj.user.phone}"
 
-    def get_author_contract_number(self, obj):
+    @staticmethod
+    def get_author_contract_number(obj):
         contract = obj.user.user_contract.first()
         return contract.number if contract else None
 
-    def get_author_contract_address(self, obj):
+    @staticmethod
+    def get_author_contract_address(obj):
         contract = obj.user.user_contract.first()
         return str(contract.address) if contract else None
 
-    def get_theme_name(self, obj):
+    @staticmethod
+    def get_theme_name(obj):
         return obj.theme.name
 
-    def get_status_name(self, obj):
+    @staticmethod
+    def get_status_name(obj):
         return obj.get_status_display()
 
     class Meta:

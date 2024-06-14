@@ -1,14 +1,10 @@
 from django.db.models import Q
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
+from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework import generics
 from drf_spectacular.utils import extend_schema, inline_serializer
 
-from rest_framework import status
-from rest_framework.authtoken.models import Token
-
 from .serializers import *
+from .permissions import *
 
 
 class LastNewsView(generics.GenericAPIView):
@@ -17,7 +13,7 @@ class LastNewsView(generics.GenericAPIView):
     """
 
     serializer_class = NewsSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = (AllowAny, )
 
     @extend_schema(
         summary="Последняя опубликованная новость",
@@ -53,7 +49,7 @@ class CreateRequestView(generics.GenericAPIView):
     """
 
     serializer_class = RequestSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = ((IsClient | IsAdmin), )
 
     @extend_schema(
         summary="Создание заявки",
@@ -91,7 +87,7 @@ class RequesrListView(generics.GenericAPIView):
     """
 
     serializer_class = RequestListSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsAdmin, )
 
     @extend_schema(
         summary="Получение списка не закрытых заявок",
@@ -122,8 +118,11 @@ class RequesrListView(generics.GenericAPIView):
 
 
 class RequestSetStatusView(generics.GenericAPIView):
+    """
+    Представление для изменения статуса конкретной заяви
+    """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsAdmin, )
     serializer_class = RequestPatchSerializer
 
     @extend_schema(
@@ -160,8 +159,11 @@ class RequestSetStatusView(generics.GenericAPIView):
 
 
 class NewsCreateView(generics.GenericAPIView):
+    """
+    Представление для создания новости
+    """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsAdmin, )
     serializer_class = NewsCreateSerializer
 
     @extend_schema(
@@ -195,8 +197,11 @@ class NewsCreateView(generics.GenericAPIView):
 
 
 class NewsUpdateView(generics.GenericAPIView):
+    """
+    Представление для изменения новости
+    """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsAdmin, )
     serializer_class = NewsPatchSerializer
 
     @extend_schema(

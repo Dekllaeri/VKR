@@ -1,0 +1,152 @@
+[
+{
+  "model": "authtoken.token",
+  "pk": "0285034759114a49d8764cccc9b6a9a8bc7043c4",
+  "fields": {
+    "user": 2,
+    "created": "2024-06-13T16:12:10.368Z"
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "07266bc216d969f68372d0a6ee1ad30158d43a4d",
+  "fields": {
+    "user": 1,
+    "created": "2024-06-13T16:19:32.777Z"
+  }
+},
+{
+  "model": "users.customuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$CpQjL5lkN126GVYvuV2TBH$y1ZF9yr+HlqVkUsgxVczHHCQr5Xc5GI5R7qtfol4ii8=",
+    "last_login": "2024-06-13T15:57:40.294Z",
+    "username": "admin",
+    "name": "",
+    "surname": "",
+    "patronymic": "",
+    "email": null,
+    "phone": null,
+    "is_active": true,
+    "is_superuser": true,
+    "is_admin": true,
+    "is_client": false,
+    "date_joined": "2024-06-13T15:55:55.341Z",
+    "updated_at": "2024-06-13T15:55:55.604Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.customuser",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$otrBNcp71yRmeoMSAi1LPs$OxNxBofNCeEIP/PpXFid78CqYvmxM3AgNX8aWImnwWk=",
+    "last_login": "2024-06-13T16:02:13.082Z",
+    "username": "leonidusreg",
+    "name": "Леонид",
+    "surname": "Беляков",
+    "patronymic": "Дмитриевич",
+    "email": "leonidusreg@gmail.com",
+    "phone": "89047996383",
+    "is_active": true,
+    "is_superuser": false,
+    "is_admin": false,
+    "is_client": true,
+    "date_joined": "2024-06-13T15:58:50Z",
+    "updated_at": "2024-06-13T17:30:27.658Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "api_v1.city",
+  "pk": 1,
+  "fields": {
+    "name": "Нижний Новгород"
+  }
+},
+{
+  "model": "api_v1.street",
+  "pk": 1,
+  "fields": {
+    "city": 1,
+    "name": "Гагарина"
+  }
+},
+{
+  "model": "api_v1.address",
+  "pk": 1,
+  "fields": {
+    "street": 1,
+    "number": 29,
+    "corpus": null
+  }
+},
+{
+  "model": "api_v1.requesttheme",
+  "pk": 1,
+  "fields": {
+    "name": "Тема заявки 1",
+    "description": "Описание"
+  }
+},
+{
+  "model": "api_v1.request",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "theme": 1,
+    "request": "Текст обращения 1",
+    "status": 1
+  }
+},
+{
+  "model": "api_v1.news",
+  "pk": 1,
+  "fields": {
+    "title": "Новость 1",
+    "slug": "novost-1",
+    "content": "<p>Новость 1 опубликована</p>",
+    "created_at": "2024-06-13T16:20:44Z",
+    "updated_at": "2024-06-13T16:21:01.467Z",
+    "status": 2
+  }
+},
+{
+  "model": "api_v1.news",
+  "pk": 2,
+  "fields": {
+    "title": "Новость 2",
+    "slug": "novost-2",
+    "content": "<p>Новость 2 опубликована</p>",
+    "created_at": "2024-06-13T16:21:01Z",
+    "updated_at": "2024-06-13T16:21:16.979Z",
+    "status": 2
+  }
+},
+{
+  "model": "api_v1.news",
+  "pk": 3,
+  "fields": {
+    "title": "Название новости",
+    "slug": "nazvanie-novosti-2",
+    "content": "Контент новостииииии",
+    "created_at": "2024-06-13T16:21:17Z",
+    "updated_at": "2024-06-13T18:24:51.944Z",
+    "status": 2
+  }
+},
+{
+  "model": "api_v1.news",
+  "pk": 4,
+  "fields": {
+    "title": "Название новости",
+    "slug": "nazvanie-novosti",
+    "content": "Контент новости",
+    "created_at": "2024-06-13T18:02:13.781Z",
+    "updated_at": "2024-06-13T18:02:13.782Z",
+    "status": 1
+  }
+}
+]
